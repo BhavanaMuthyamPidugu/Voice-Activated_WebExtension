@@ -1,0 +1,89 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    width: 300px;
+    text-align: center;
+    padding: 10px;
+    background: #f9f9f9;
+}
+
+/* Container for Popup */
+.container {
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+h2 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Start Listening Button */
+button {
+    background: #007bff;
+    color: white;
+    font-size: 14px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Recognized Speech Text */
+#response-text {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+}
+
+/* ---- Floating Chatbot Styles ---- */
+#voice-chatbot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    height: 420px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Floating Chatbot Button */
+#voice-command-btn {
+    width: 100%;
+    background: #28a745;
+    color: white;
+    font-size: 16px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#voice-command-btn:hover {
+    background: #218838;
+}
+
+/* Floating Chatbot Response */
+#response-text {
+    font-size: 14px;
+    color: #222;
+    padding: 10px;
+    overflow-y: auto;
+    max-height: 300px;
+}

@@ -3,8 +3,8 @@
   "name": "Voice Control Assistant",
   "version": "1.1",
   "description": "Voice-controlled assistant for any website interactions hands-free",
-  "permissions": ["tabs", "activeTab", "storage", "scripting","microphone"],
-  "host_permissions": ["<all_urls>"],
+  "permissions": ["tabs", "activeTab", "storage", "scripting"],
+  "host_permissions": ["https://github.com/*", "https://www.google.com/*","<all_urls>"],
   "background": { 
     "service_worker": "background.js" 
   },

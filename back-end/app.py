@@ -16,7 +16,6 @@ class VoiceCommandState:
 graph = StateGraph(VoiceCommandState)
 
 def process_command(state):
-
     """
     Processes a voice command and returns a corresponding JavaScript action.
 
@@ -26,10 +25,10 @@ def process_command(state):
     Returns:
         dict: Contains the JavaScript command and voice response.
     """
-    text = state.text.lower().strip()
+    text = state["text"].lower().strip()
     
     commands = {
-        # Common commands (work on all pages)
+        # Common commands
         "scroll down": ("Scrolling down...", "window.scrollBy(0, 500);"),
         "scroll up": ("Scrolling up...", "window.scrollBy(0, -500);"),
         "go to top": ("Going to the top of the page.", "window.scrollTo(0, 0);"),
@@ -73,10 +72,9 @@ def process_command(state):
 
     return {"script": script, "response": response_text}
 
+# Fix: Compile the graph before invoking
 graph.add_node("voice_processing", ToolNode([process_command])) 
 graph.set_entry_point("voice_processing")
-
-# **Fix: Compile the graph before invoking**
 executor = graph.compile()
 
 @app.route("/process_audio", methods=["POST"])
@@ -92,58 +90,3 @@ def process_audio():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-# from flask import Flask, request, jsonify
-# from flask_cors import CORS
-# import whisper
-# from langgraph.graph import StateGraph
-
-# app = Flask(__name__)
-# CORS(app)
-
-# model = whisper.load_model("base")
-
-# class VoiceCommandState:
-#     text: str
-
-# graph = StateGraph(VoiceCommandState)
-
-# def process_command(state):
-#     text = state.text.lower().strip()
-    
-#     commands = {
-#         "scroll down": "window.scrollBy(0, 500);",
-#         "scroll up": "window.scrollBy(0, -500);",
-#         "click submit": "document.querySelector('button[type=submit]').click();",
-#         "go to home": "window.location.href = '/';",
-#         "search google": "window.location.href = 'https://www.google.com/search?q=' + encodeURIComponent(prompt('Enter your search query:'))",
-#         "mute": "document.querySelector('video,audio').muted = true;",
-
-#         # GitHub-specific commands
-#         "start repo":"document.querySelector('a[href$=\"/new\"]').click();",
-#         "view issues": "document.querySelector('a[href$=\"/issues\"]').click();",
-#         "view pull requests": "document.querySelector('a[href$=\"/pulls\"]').click();",
-#         "star repository": "document.querySelector('button[aria-label=\"Star this repository\"]').click();"
-#     }
-
-#     if text in commands:
-#         return {"script": commands[text]}
-#     else:
-#         return {"script": f"alert('Unknown command: {text}');"}
-
-# graph.add_node("voice_processing", process_command)
-# graph.set_entry_point("voice_processing")
-
-# @app.route("/process_audio", methods=["POST"])
-# def process_audio():
-#     data = request.get_json()
-#     if "text" not in data or not data["text"].strip():
-#         return jsonify({"error": "Missing or empty 'text' field"}), 400
-
-#     result = model.transcribe(data["text"])
-#     command_script = graph.invoke(VoiceCommandState(text=result["text"]))
-
-#     return jsonify(command_script)
-
-# if __name__ == "__main__":
-#     app.run(debug=True)
